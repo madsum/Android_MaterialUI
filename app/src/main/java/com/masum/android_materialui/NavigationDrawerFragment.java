@@ -53,10 +53,9 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-    public void setup(int drawer_fragment_id, DrawerLayout drawerLayout, Toolbar toolbar) {
+    public void setup(int drawer_fragment_id, DrawerLayout drawerLayout, final Toolbar toolbar) {
         mDrawerLayout = drawerLayout;
         drawerFragmentInMain = getActivity().findViewById(drawer_fragment_id);
-        //containerView = getActivity().findViewById(drawerFragmentId);
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(),
                 drawerLayout, toolbar,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -78,14 +77,14 @@ public class NavigationDrawerFragment extends Fragment {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
             }
-            /*
+
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 if(slideOffset < 0.6){
                     toolbar.setAlpha(1 - slideOffset);
                 }
             }
-            */
+
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);

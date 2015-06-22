@@ -2,14 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEE"
+    android:background="#326464"
     tools:context="com.masum.android_materialui.NavigationDrawerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/content_drawer_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#F00"
-        android:text="my drawer frgagment" />
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_width="@dimen/drawer_bg_width"
+            android:layout_height="@dimen/drawer_bg_height"
+            android:src="@drawable/drawer_bg" />
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="my drawer frgagment"
+            android:textColor="#F00" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

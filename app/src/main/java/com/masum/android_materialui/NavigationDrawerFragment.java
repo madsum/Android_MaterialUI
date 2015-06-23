@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment { //implements InformationAdapter.ClickListener {
 
     public static String PREF_FILE_NAME = "testPref";
     public static String KEY_USER_LEARED_DRAWER = "user_leared_drawer";
@@ -33,7 +33,6 @@ public class NavigationDrawerFragment extends Fragment {
     private View drawerFragmentInMain;
     private RecyclerView recyclerView;
     private InformationAdapter informationAdapter;
-
 
 
     public NavigationDrawerFragment() {
@@ -48,6 +47,8 @@ public class NavigationDrawerFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_nevigaion_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerlist);
         informationAdapter = new InformationAdapter(getActivity(), getData());
+        // setting this as listner coz this implements ClickListner
+        //informationAdapter.setClickListener(this);
         recyclerView.setAdapter(informationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return layout;
@@ -58,7 +59,7 @@ public class NavigationDrawerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mUsreLearnedDrawer = Boolean.valueOf(readFromPreference(getActivity(), KEY_USER_LEARED_DRAWER, "false"));
 
-        if(savedInstanceState !=null){
+        if (savedInstanceState != null) {
             mFromSavedState = true;
         }
 
@@ -76,7 +77,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
 
-                if(!mUsreLearnedDrawer){
+                if (!mUsreLearnedDrawer) {
                     mUsreLearnedDrawer = true;
                     savePreference(getActivity(), KEY_USER_LEARED_DRAWER, mUsreLearnedDrawer + "");
                 }
@@ -92,7 +93,7 @@ public class NavigationDrawerFragment extends Fragment {
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                if(slideOffset < 0.6){
+                if (slideOffset < 0.6) {
                     toolbar.setAlpha(1 - slideOffset);
                 }
             }
@@ -102,7 +103,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 
-        if(!mUsreLearnedDrawer && !mFromSavedState){
+        if (!mUsreLearnedDrawer && !mFromSavedState) {
             Log.i(MainActivity.TAG, "hit for the very fast time.");
             mDrawerLayout.openDrawer(drawerFragmentInMain);
         }
@@ -135,21 +136,28 @@ public class NavigationDrawerFragment extends Fragment {
         return sharedPreferences.getString(preferenceName, defaultValue);
     }
 
-    private static List<Information> getData(){
+    private static List<Information> getData() {
         List<Information> data = new ArrayList<>();
         int[] iconId = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four};
         String[] title = {"facebook", "linkedIn", "twetter", "youtube"};
 
-        for(int i=0; i<iconId.length && i<title.length; i++){
+
+        //for(int i=0; i<iconId.length && i<title.length; i++){
+        for (int i = 0; i < 100; i++) {
 
             Information currentInfo = new Information();
 
-            currentInfo.iconId = iconId[i];
-            currentInfo.title = title[i];
+            currentInfo.iconId = iconId[i % iconId.length];
+            currentInfo.title = title[i % title.length];
             data.add(currentInfo);
         }
-        return  data;
+        return data;
+    }
+/*
+    @Override
+    public void itemClicked(View view, int position) {
+        startActivity(new Intent(getActivity(), SubActivity.class));
 
     }
-
+    */
 }

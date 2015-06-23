@@ -2,7 +2,6 @@ package com.masum.android_materialui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     private LayoutInflater inflater;
     private List<Information> data = Collections.emptyList();
     private  Context context;
-    private ClickListener clickListener;
 
     public  InformationAdapter(Context context, List<Information> data){
          inflater = LayoutInflater.from(context);
@@ -31,7 +29,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     public MyViewFolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.custom_row, parent, false);
         MyViewFolder holder = new MyViewFolder(view);
-        Log.i(MainActivity.TAG, "onCreateViewHolder called.");
+        //Log.i(MainActivity.TAG, "onCreateViewHolder called.");
         return holder;
     }
 
@@ -41,7 +39,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         Information current = data.get(position);
         holder.title.setText(current.title);
         holder.icon.setImageResource(current.iconId);
-        Log.i(MainActivity.TAG, "onBindViewHolder called on position: "+position);
+        //Log.i(MainActivity.TAG, "onBindViewHolder called on position: "+position);
     }
 
 
@@ -50,17 +48,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         return data.size();
     }
 
-    private void deleteItem(int position){
-        data.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void setClickListener(ClickListener  clickListener){
-        this.clickListener = clickListener;
-    }
-
-
-    class MyViewFolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewFolder extends RecyclerView.ViewHolder{
         TextView title;
         ImageView icon;
         public MyViewFolder(View itemView) {
@@ -68,22 +56,6 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
             title = (TextView) itemView.findViewById(R.id.listText);
             icon = (ImageView) itemView.findViewById(R.id.listIcon);
-            icon.setOnClickListener(this);
         }
-
-        @Override
-        public void onClick(View v) {
-
-            //Toast.makeText(context, )
-            //Log.i(MainActivity.TAG, "clicked item: "+getPosition());
-            //deleteItem(getPosition());
-            if(clickListener != null){
-                clickListener.itemClicked(v, getPosition());
-            }
-        }
-    }
-
-    public interface  ClickListener{
-        public void itemClicked(View view, int position);
     }
 }

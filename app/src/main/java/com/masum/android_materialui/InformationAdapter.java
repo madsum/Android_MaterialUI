@@ -1,7 +1,6 @@
 package com.masum.android_materialui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     private LayoutInflater inflater;
     private List<Information> data = Collections.emptyList();
     private  Context context;
-    //private ClickListener clickListener;
+    private ClickListener clickListener;
 
     public  InformationAdapter(Context context, List<Information> data){
          inflater = LayoutInflater.from(context);
@@ -55,11 +54,11 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         data.remove(position);
         notifyItemRemoved(position);
     }
-/*
+
     public void setClickListener(ClickListener  clickListener){
         this.clickListener = clickListener;
     }
-    */
+
 
     class MyViewFolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView title;
@@ -78,13 +77,13 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             //Toast.makeText(context, )
             //Log.i(MainActivity.TAG, "clicked item: "+getPosition());
             //deleteItem(getPosition());
-            context.startActivity(new Intent(context, SubActivity.class));
-
+            if(clickListener != null){
+                clickListener.itemClicked(v, getPosition());
+            }
         }
     }
-/*
+
     public interface  ClickListener{
         public void itemClicked(View view, int position);
     }
-    */
 }

@@ -2,6 +2,7 @@ package com.masum.android_materialui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment { //implements InformationAdapter.ClickListener {
+public class NavigationDrawerFragment extends Fragment implements InformationAdapter.ClickListener {
 
     public static String PREF_FILE_NAME = "testPref";
     public static String KEY_USER_LEARED_DRAWER = "user_leared_drawer";
@@ -48,7 +49,7 @@ public class NavigationDrawerFragment extends Fragment { //implements Informatio
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerlist);
         informationAdapter = new InformationAdapter(getActivity(), getData());
         // setting this as listner coz this implements ClickListner
-        //informationAdapter.setClickListener(this);
+        informationAdapter.setClickListener(this);
         recyclerView.setAdapter(informationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return layout;
@@ -153,11 +154,10 @@ public class NavigationDrawerFragment extends Fragment { //implements Informatio
         }
         return data;
     }
-/*
+
     @Override
     public void itemClicked(View view, int position) {
         startActivity(new Intent(getActivity(), SubActivity.class));
 
     }
-    */
 }

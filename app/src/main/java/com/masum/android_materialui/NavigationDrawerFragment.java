@@ -206,6 +206,7 @@ public class NavigationDrawerFragment extends Fragment {
                 public boolean onSingleTapUp(MotionEvent e) {
                     Log.i(MainActivity.TAG, "onSingleTapUp");
 
+                    int a = e.getAction();
                     View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
 
                     if(child != null && clickListener!= null){
@@ -235,13 +236,8 @@ public class NavigationDrawerFragment extends Fragment {
 
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-            Log.i(MainActivity.TAG, "# onInterceptTouchEvent "+gestureDetector.onTouchEvent(e)+ " ## " +e);
-/*
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if(child !=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
-              clickListener.onClick(child, rv.getChildPosition(child));
-            }
-*/
+            // this call will allow GestureDetector.SimpleOnGestureListener to invoke
+            gestureDetector.onTouchEvent(e);
             return false;
         }
 
